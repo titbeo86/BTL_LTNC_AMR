@@ -62,25 +62,25 @@ Kiến trúc liên kết 3 tầng (Laptop GUI - Pi 5 Controller - ESP32 Firmware
 
 ```mermaid
 graph TD
-    subgraph Laptop (Digital Twin & Pathfinding)
-        GUI[Pygame Interface] <--> LaptopMQTT[Laptop MQTT Client]
+    subgraph "Laptop (Digital Twin & Pathfinding)"
+        GUI["Pygame Interface"] <--> LaptopMQTT["Laptop MQTT Client"]
     end
 
-    subgraph Raspberry Pi 5 (Central Controller)
-        Pi5MQTT[Pi5 MQTT Client] <--> Pi5Ctrl[Pi5 Controller Logic]
-        Pi5Ctrl <--> Pi5Serial[Pi5 Serial Driver]
+    subgraph "Raspberry Pi 5 (Central Controller)"
+        Pi5MQTT["Pi5 MQTT Client"] <--> Pi5Ctrl["Pi5 Controller Logic"]
+        Pi5Ctrl <--> Pi5Serial["Pi5 Serial Driver"]
     end
 
-    subgraph ESP32-S3 (Motion Hardware)
-        ESP32Serial[ESP32 Serial Listener] <--> ESP32Ctrl[ESP32 Main Loop]
-        ESP32Ctrl -->|PWM Control| L298N[L298N Motor Driver]
-        L298N -->|Voltage| Motors[4x DC Motors]
-        Encoders[4x Incremental Encoders] -->|Pulse Interrupts| ESP32Ctrl
-        ESP32Ctrl -->|I2C Display| LCD[LCD 1602 Display]
+    subgraph "ESP32-S3 (Motion Hardware)"
+        ESP32Serial["ESP32 Serial Listener"] <--> ESP32Ctrl["ESP32 Main Loop"]
+        ESP32Ctrl -->|PWM Control| L298N["L298N Motor Driver"]
+        L298N -->|Voltage| Motors["4x DC Motors"]
+        Encoders["4x Incremental Encoders"] -->|Pulse Interrupts| ESP32Ctrl
+        ESP32Ctrl -->|I2C Display| LCD["LCD 1602 Display"]
     end
 
-    LaptopMQTT <-->|Wi-Fi / MQTT| Pi5MQTT
-    Pi5Serial <-->|USB Cable / UART Serial| ESP32Serial
+    LaptopMQTT <-->|"Wi-Fi / MQTT"| Pi5MQTT
+    Pi5Serial <-->|"USB Cable / UART Serial"| ESP32Serial
 ```
 
 ---
